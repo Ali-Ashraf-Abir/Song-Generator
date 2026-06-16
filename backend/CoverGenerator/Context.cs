@@ -8,8 +8,8 @@ public static class CoverText
 {
     public static void Draw(Image<Rgba32> image, int size, string title, string album)
     {
-        var titleFont = SystemFonts.CreateFont("Arial", 32, FontStyle.Bold);
-        var albumFont = SystemFonts.CreateFont("Arial", 18, FontStyle.Regular);
+        var titleFont = SystemFonts.CreateFont("Liberation Sans", 32, FontStyle.Bold);
+        var albumFont = SystemFonts.CreateFont("Liberation Sans", 18, FontStyle.Regular);
 
         Color white = Color.FromPixel(new Rgba32(255, 255, 255, 230));
         Color subtitleTint = Color.FromPixel(new Rgba32(220, 220, 220, 200));
