@@ -31,11 +31,12 @@ public class SongGenerationService : ISongGenerationService
                     globalIndex);
 
             songs.Add(
-                GenerateSong(
-                    locale,
-                    songSeed,
-                    globalIndex,
-                    request.AvgLikes));
+             GenerateSong(
+                 locale,
+                 request.Locale,
+                 songSeed,
+                 globalIndex,
+                 request.AvgLikes));
         }
 
         return Task.FromResult<IReadOnlyList<SongDto>>(songs);
@@ -43,6 +44,7 @@ public class SongGenerationService : ISongGenerationService
 
     private SongDto GenerateSong(
         LocaleData locale,
+        string localeCode,
         int songSeed,
         int index,
         double avgLikes)
@@ -68,30 +70,27 @@ public class SongGenerationService : ISongGenerationService
             < 0.60 => 2,
             _ => 3
         };
+        var title = titleLength switch
+        {
+            1 => Pick(locale.SongNouns, titleRandom),
+            2 => $"{Pick(locale.SongAdjectives, titleRandom)} {Pick(locale.SongNouns, titleRandom)}",
+            _ => $"{Pick(locale.SongAdjectives, titleRandom)} {Pick(locale.SongAdjectives, titleRandom)} {Pick(locale.SongNouns, titleRandom)}"
+        };
+
+        var artist = GenerateArtist(locale, artistRandom);
+
+        var album = GenerateAlbum(locale, albumRandom);
+
+        var genre = Pick(locale.Genres, genreRandom);
         return new SongDto
         {
             Index = index,
-
-
-
-            Title = titleLength switch
-            {
-                1 => Pick(locale.SongNouns, titleRandom),
-                2 => $"{Pick(locale.SongAdjectives, titleRandom)} {Pick(locale.SongNouns, titleRandom)}",
-                _ => $"{Pick(locale.SongAdjectives, titleRandom)} {Pick(locale.SongAdjectives, titleRandom)} {Pick(locale.SongNouns, titleRandom)}"
-            },
-
-            Artist =
-                GenerateArtist(locale, artistRandom),
-
-            Album =
-                GenerateAlbum(locale, albumRandom),
-
-            Genre =
-                Pick(locale.Genres, genreRandom),
-
-            Likes =
-                GenerateLikes(avgLikes, likesRandom)
+            Title = title,
+            Artist = artist,
+            Album = album,
+            Genre = genre,
+            Likes = GenerateLikes(avgLikes, likesRandom),
+            CoverUrl = $"/api/covers?seed={songSeed}&index={index}&locale={localeCode}"
         };
     }
 
@@ -139,5 +138,21 @@ public class SongGenerationService : ISongGenerationService
                (random.NextDouble() < fraction
                     ? 1
                     : 0);
+    }
+
+    public SongDto GenerateFromSeed(
+    string locale,
+    int songSeed,
+    int index)
+    {
+        var localeData =
+            _localizationProvider.Get(locale);
+
+        return GenerateSong(
+            localeData,
+            locale,
+            songSeed,
+            index,
+            3.7);
     }
 }

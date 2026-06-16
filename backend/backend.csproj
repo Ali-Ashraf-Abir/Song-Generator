@@ -1,9 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>fa7aac13-083f-4ae9-95e0-a26ca58a4023</UserSecretsId>
   </PropertyGroup>
-
+<PropertyGroup>
+  <SixLaborsLicenseKey>$(SIXLABORS_LICENSE_KEY)</SixLaborsLicenseKey>
+</PropertyGroup>
+<ItemGroup>
+  <PackageReference Include="SixLabors.Fonts" Version="3.0.0" />
+  <PackageReference Include="SixLabors.ImageSharp" Version="4.0.0" />
+  <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="3.0.0" />
+</ItemGroup>
 </Project>

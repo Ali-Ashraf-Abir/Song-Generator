@@ -17,7 +17,6 @@ public class SongController : ControllerBase
     }
 
     [HttpGet]
-    [HttpGet]
     public async Task<IActionResult> GetSongs(
     [FromQuery] string locale = "en-US",
     [FromQuery] long seed = 1,
