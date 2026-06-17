@@ -4,7 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Base ── */
 *, *::before, *::after { box-sizing: border-box; }
 
 :root {
@@ -36,7 +35,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ── Layout ── */
+
 .app-shell {
   min-height: 100vh;
   display: flex;
@@ -89,7 +88,6 @@ body {
   width: 100%;
 }
 
-/* ── Toolbar ── */
 .toolbar {
   display: flex;
   align-items: flex-end;
@@ -189,7 +187,7 @@ body {
 
 .likes-slider::-webkit-slider-thumb:hover { transform: scale(1.2); }
 
-/* ── View toggle ── */
+
 .view-toggle {
   display: flex;
   background: var(--c-surface2);
@@ -214,7 +212,7 @@ body {
 .view-btn:hover { color: var(--c-text2); background: var(--c-surface3); }
 .view-btn.active { background: var(--c-amber); color: #000; }
 
-/* ── Table ── */
+
 .table-container { overflow-x: auto; }
 
 .song-table {
@@ -269,7 +267,6 @@ body {
 
 .text-muted { color: var(--c-text3); font-style: italic; }
 
-/* ── Genre tag ── */
 .genre-tag {
   display: inline-flex;
   background: var(--c-surface3);
@@ -286,7 +283,7 @@ body {
   padding: 1px 6px;
 }
 
-/* ── Expanded row ── */
+
 .expanded-tr { background: var(--c-surface); }
 .expanded-td { padding: 0 !important; }
 
@@ -346,7 +343,6 @@ body {
   margin: 0;
 }
 
-/* ── Player bar ── */
 .player-bar {
   display: flex;
   align-items: center;
@@ -400,7 +396,7 @@ body {
   white-space: nowrap;
 }
 
-/* ── Review text ── */
+
 .expanded-review {
   font-size: 13px;
   color: var(--c-text2);
@@ -606,7 +602,7 @@ body {
   50%       { opacity: 0.3; }
 }
 
-/* ── Error state ── */
+
 .error-state {
   padding: 48px 0;
   text-align: center;
@@ -619,10 +615,129 @@ body {
   margin-top: 6px;
 }
 
-/* ── Misc ── */
+
 .font-mono { font-family: 'JetBrains Mono', monospace; }
 
 .gallery-card .like-badge {
   position: static;
   transform: none;
+}
+@media (max-width: 900px) {
+  .app-header {
+    height: auto;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px 16px;
+    gap: 0;
+  }
+
+  .app-logo {
+    padding: 4px 0 10px;
+    border-bottom: 1px solid var(--c-border);
+  }
+
+  .toolbar {
+    padding: 12px 0 8px;
+    gap: 12px 20px;
+  }
+
+  .toolbar-group {
+    flex: 1 1 140px;
+  }
+
+  .toolbar-select { min-width: 0; width: 100%; }
+  .toolbar-input  { width: 100%; }
+
+  .likes-slider { width: 100%; }
+
+  .view-toggle {
+    align-self: center;
+    margin-left: auto;
+  }
+
+  .app-main {
+    padding: 0 16px 40px;
+  }
+
+  .col-album { display: none; }
+}
+
+
+@media (max-width: 600px) {
+  .app-header {
+    padding: 10px 12px;
+  }
+
+  .app-main {
+    padding: 0 12px 32px;
+  }
+
+  .toolbar {
+    gap: 10px;
+  }
+
+  .toolbar-group {
+    flex: 1 1 100%;
+  }
+
+
+  .seed-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+  }
+
+  .col-genre { display: none; }
+
+  
+  .expanded-row {
+    flex-direction: column;
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .cover-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    max-width: 180px;
+  }
+
+  .player-bar { max-width: 100%; }
+
+  .expanded-review { max-width: 100%; }
+
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+
+  .pagination {
+    gap: 3px;
+    padding: 16px 0 6px;
+  }
+
+  .page-btn {
+    min-width: 30px;
+    height: 30px;
+    font-size: 12px;
+  }
+}
+
+
+@media (max-width: 380px) {
+  .col-artist { display: none; }
+
+  .gallery-grid {
+    gap: 8px;
+  }
+
+  .gallery-info {
+    padding: 8px 10px;
+  }
+
+  .gallery-title { font-size: 12px; }
+  .gallery-artist { font-size: 11px; }
 }

@@ -39,11 +39,6 @@ public sealed class CompositionGenerator : ICompositionGenerator
         };
     }
 
-    /// <summary>
-    /// Picks a bar count (rounded to a full 4-bar phrase) that gets the
-    /// rendered preview as close as possible to the requested duration
-    /// without going under it.
-    /// </summary>
     private static int CalculateBarCount(int tempo, int targetDurationSeconds)
     {
         var secondsPerBeat = 60.0 / tempo;

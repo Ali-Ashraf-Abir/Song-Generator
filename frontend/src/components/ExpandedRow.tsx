@@ -77,25 +77,7 @@ export default function ExpandedRow({ song, locale }: ExpandedRowProps) {
           <p className="expanded-label">{label}, {year}</p>
         </div>
 
-        {/* Fake player */}
-        <div className="player-bar">
-          <button
-            className={`play-btn ${playing ? 'playing' : ''}`}
-            onClick={() => setPlaying(p => !p)}
-            title={playing ? 'Pause' : 'Play preview'}
-          >
-            {playing ? (
-              <span className="pause-icon">⏸</span>
-            ) : (
-              <Play size={14} fill="currentColor" />
-            )}
-          </button>
-          <Music size={13} className="player-icon" />
-          <div className="player-track">
-            <div className="player-progress" style={{ width: playing ? '35%' : '0%' }} />
-          </div>
-          <span className="player-time">2:{String(Math.floor(30 + (song.index % 30))).padStart(2, '0')}</span>
-        </div>
+        
         <audio
           controls
           preload="none"
