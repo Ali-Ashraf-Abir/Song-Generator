@@ -1,18 +1,12 @@
 namespace backend.MusicEngine.Theory;
 
-/// <summary>
-/// A single resolved chord: a root pitch class, a quality, and the
-/// concrete chord-tone pitch classes derived from them. Octave placement
-/// happens later (in the bass/melody/pad generators), so this stays
-/// octave-agnostic and easy to reason about.
-/// </summary>
+
 public sealed class Chord
 {
     public int RootPitchClass { get; }
     public ChordQuality Quality { get; }
     public int ScaleDegree { get; }
 
-    /// <summary>Pitch classes (0-11) making up the chord, root first.</summary>
     public IReadOnlyList<int> TonePitchClasses { get; }
 
     public Chord(int rootPitchClass, ChordQuality quality, int scaleDegree)
@@ -27,11 +21,7 @@ public sealed class Chord
             .ToList();
     }
 
-    /// <summary>
-    /// Returns the MIDI note for the chord tone at <paramref name="toneIndex"/>
-    /// (0 = root, 1 = third, 2 = fifth, 3 = seventh if present), placed in
-    /// the octave nearest to <paramref name="anchorMidiNote"/>.
-    /// </summary>
+
     public int ToneNearOctave(int toneIndex, int anchorMidiNote)
     {
         var pitchClass = TonePitchClasses[((toneIndex % TonePitchClasses.Count) + TonePitchClasses.Count) % TonePitchClasses.Count];
@@ -56,7 +46,7 @@ public sealed class Chord
         return best;
     }
 
-    /// <summary>True if the pitch class of <paramref name="midiNote"/> is one of this chord's tones.</summary>
+
     public bool IsChordTone(int midiNote)
     {
         var pc = ((midiNote % 12) + 12) % 12;

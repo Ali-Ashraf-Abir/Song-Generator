@@ -7,13 +7,13 @@ public static class MelodyGenerator
 {
     private static readonly double[][] RhythmPatterns =
     {
-        new[] { 4.0 },                         // one long note across the bar
-        new[] { 2.0, 2.0 },                    // two halves
+        new[] { 4.0 },                         
+        new[] { 2.0, 2.0 },                   
         new[] { 2.0, 1.0, 1.0 },
         new[] { 1.0, 1.0, 2.0 },
-        new[] { 1.0, 1.0, 1.0, 1.0 },          // four quarters
+        new[] { 1.0, 1.0, 1.0, 1.0 },         
         new[] { 1.5, 1.5, 1.0 },
-        new[] { 0.5, 0.5, 1.0, 1.0, 1.0 },     // syncopated pickup
+        new[] { 0.5, 0.5, 1.0, 1.0, 1.0 },     
         new[] { 1.0, 0.5, 0.5, 1.0, 1.0 }
     };
 
@@ -46,8 +46,7 @@ public static class MelodyGenerator
                 var duration = pattern[noteIndex];
                 var startBeat = (bar * beatsPerBar) + beatCursor;
 
-                // Occasionally rest instead of playing, for breathing room.
-                // Never rest on the first note of a bar (keeps phrases anchored).
+
                 var isRest = noteIndex > 0 && restRng.NextDouble() < 0.12;
 
                 if (!isRest)
@@ -62,12 +61,12 @@ public static class MelodyGenerator
                     }
                     else
                     {
-                        // Step-wise motion: move 1-2 scale degrees from the previous note.
+
                         var step = pitchRng.Next(-2, 3);
                         pitch = key.SnapToScale(previousPitch + step);
                     }
 
-                    // Keep the melody within a reasonable singable/playable range.
+    
                     pitch = ClampToRange(pitch, anchorMidiNote - 7, anchorMidiNote + 12);
 
                     var velocity = 70 + velocityRng.Next(-8, 18) + (isStrongBeat ? 8 : 0);
@@ -77,7 +76,7 @@ public static class MelodyGenerator
                     {
                         MidiNote = pitch,
                         StartBeat = startBeat,
-                        DurationBeats = duration * 0.95, // slight gap so notes don't legato-bleed
+                        DurationBeats = duration * 0.95, 
                         Velocity = velocity
                     });
 

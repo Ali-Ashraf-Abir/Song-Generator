@@ -1,19 +1,12 @@
 using backend.MusicEngine.Theory;
 
 namespace backend.MusicEngine.Models;
-
-/// <summary>
-/// Builds and caches the immutable <see cref="GenreProfile"/> for each
-/// <see cref="MusicGenre"/>. Profiles are built once (static, lazy) and
-/// shared across all requests — they contain no per-song state.
-/// </summary>
 public static class GenreProfileCatalog
 {
     private static readonly Dictionary<MusicGenre, GenreProfile> Profiles = BuildAll();
 
     public static GenreProfile Get(MusicGenre genre) => Profiles[genre];
 
-    /// <summary>Deterministically maps an arbitrary integer onto a genre, used to pick a song's genre from its seed.</summary>
     public static MusicGenre PickGenre(int songSeed)
     {
         var values = Enum.GetValues<MusicGenre>();
@@ -39,7 +32,7 @@ public static class GenreProfileCatalog
             Genre = MusicGenre.Rock,
             TempoRange = (100, 150),
             PossibleScales = new[] { ScaleType.Major, ScaleType.NaturalMinor, ScaleType.Mixolydian },
-            // Roman-numeral scale degrees (0-indexed): I-V-vi-IV, vi-IV-I-V, I-IV-V-IV, etc.
+
             ProgressionPool = new[]
             {
                 new[] { 0, 4, 5, 3 },

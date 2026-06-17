@@ -3,30 +3,13 @@ using NAudio.Wave;
 
 namespace backend.MusicEngine.Rendering;
 
-/// <summary>
-/// Renders a MIDI file to a WAV byte array. DryWetMidi owns MIDI
-/// construction (it has the richer, more ergonomic object model used by
-/// <see cref="MidiBuilder"/>); MeltySynth owns playback/synthesis (it's a
-/// self-contained SoundFont synthesizer with no native dependencies,
-/// which matters for cross-platform deployment). The two libraries don't
-/// share a MIDI object model, so the bridge between them is the
-/// standard MIDI file byte stream itself: DryWetMidi writes standard SMF
-/// bytes, MeltySynth's own lightweight parser reads the same bytes back.
-/// </summary>
 public sealed class WavRenderer : IWavRenderer
 {
     private const int SampleRate = 44100;
 
     private readonly Synthesizer _synthesizer;
 
-    // MeltySynth's Synthesizer/MidiFileSequencer carry internal voice state
-    // that Render() mutates; nothing in the library documents concurrent
-    // Render calls on one instance as safe. Rather than reload the
-    // SoundFont (often tens of MB) on every request, we keep one shared
-    // Synthesizer and serialize access to it with this semaphore. Render
-    // throughput under concurrent requests is therefore bounded by this
-    // single critical section — acceptable for a cache-backed preview
-    // endpoint where most requests are cache hits anyway.
+
     private readonly SemaphoreSlim _renderLock = new(1, 1);
 
     public WavRenderer(string soundFontPath)

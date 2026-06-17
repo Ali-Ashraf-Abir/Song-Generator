@@ -1,13 +1,6 @@
 namespace backend.MusicEngine.Rendering;
 
-/// <summary>
-/// Wraps a stream so that Dispose/Close on this wrapper does not close
-/// the underlying stream. NAudio's <see cref="NAudio.Wave.WaveFileWriter"/>
-/// closes whatever stream it's given when disposed; wrapping the target
-/// <see cref="MemoryStream"/> in this lets us flush/finalize the WAV
-/// header via the writer's Dispose while still reading the bytes back out
-/// of the original MemoryStream afterward.
-/// </summary>
+
 public sealed class IgnoreDisposeStream : Stream
 {
     private readonly Stream _inner;
@@ -36,6 +29,6 @@ public sealed class IgnoreDisposeStream : Stream
 
     protected override void Dispose(bool disposing)
     {
-        // Deliberately do not dispose _inner — that's the whole point of this wrapper.
+       
     }
 }

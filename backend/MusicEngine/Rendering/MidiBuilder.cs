@@ -6,14 +6,7 @@ using Melanchall.DryWetMidi.Interaction;
 namespace backend.MusicEngine.Rendering;
 
 using CompositionNoteEvent = backend.MusicEngine.Models.NoteEvent;
-/// <summary>
-/// Converts a fully-specified <see cref="CompositionResult"/> into a
-/// DryWetMidi <see cref="MidiFile"/>. Each musical part (melody, chord
-/// pad, bass, drums) becomes its own track chunk on its own channel, with
-/// program changes set from the genre's <see cref="InstrumentSet"/>.
-/// Beat positions from the composition are converted to MIDI ticks using
-/// a fixed ticks-per-quarter-note resolution and the song's tempo.
-/// </summary>
+
 public sealed class MidiBuilder : IMidiBuilder
 {
     private const short TicksPerQuarterNote = 480;
@@ -117,9 +110,7 @@ public sealed class MidiBuilder : IMidiBuilder
     {
         var track = new TrackChunk();
 
-        // GM drum kits are selected via program change 0 on channel 10 by convention;
-        // most synths/soundfonts map channel 10 to percussion regardless, but we set
-        // it explicitly for sound fonts that key off the program number too.
+
         using (var eventsManager = track.ManageTimedEvents())
         {
             eventsManager.Objects.Add(new TimedEvent(

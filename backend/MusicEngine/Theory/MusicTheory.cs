@@ -1,10 +1,5 @@
 namespace backend.MusicEngine.Theory;
 
-/// <summary>
-/// Semitone offsets from the tonic for a scale, plus helpers for
-/// scale-degree -> chord-quality mapping. All theory in this file is
-/// pure and deterministic: same inputs always produce the same outputs.
-/// </summary>
 public enum ScaleType
 {
     Major,
@@ -27,10 +22,6 @@ public enum ChordQuality
     HalfDiminished7
 }
 
-/// <summary>
-/// A musical key: a tonic pitch class (0-11, where 0 = C) plus a scale type.
-/// Provides scale-degree lookups used by chord/melody/bass generators.
-/// </summary>
 public sealed class MusicKey
 {
     public int TonicPitchClass { get; }
@@ -46,10 +37,6 @@ public sealed class MusicKey
 
     public int Degrees => _intervals.Length;
 
-    /// <summary>
-    /// Returns the absolute pitch class (0-11) for a given zero-based
-    /// scale degree, wrapping across octaves as needed.
-    /// </summary>
     public int PitchClassForDegree(int degree)
     {
         var octaveOffset = (int)Math.Floor((double)degree / _intervals.Length);
@@ -57,10 +44,7 @@ public sealed class MusicKey
         return (TonicPitchClass + _intervals[degreeInOctave] + (octaveOffset * 12) + 1200) % 12;
     }
 
-    /// <summary>
-    /// Returns a MIDI note number for a scale degree at a given octave
-    /// (octave 5 places the tonic near middle C / MIDI 60-71 range).
-    /// </summary>
+
     public int MidiNoteForDegree(int degree, int octave)
     {
         var octaveOffset = (int)Math.Floor((double)degree / _intervals.Length);
@@ -69,11 +53,7 @@ public sealed class MusicKey
         return ((octave + 1) * 12) + TonicPitchClass + semitoneFromTonic;
     }
 
-    /// <summary>
-    /// True if the given absolute MIDI note's pitch class belongs to this
-    /// key's scale (used to decide whether a passing/blue note needs
-    /// snapping back onto the scale).
-    /// </summary>
+
     public bool Contains(int midiNote)
     {
         var pc = ((midiNote % 12) + 12) % 12;
@@ -87,11 +67,7 @@ public sealed class MusicKey
         return false;
     }
 
-    /// <summary>
-    /// Snaps an arbitrary MIDI note to the nearest pitch class in this key's
-    /// scale, preferring downward movement on ties to avoid clashing
-    /// against chord tones that sit above it.
-    /// </summary>
+
     public int SnapToScale(int midiNote)
     {
         if (Contains(midiNote))
@@ -125,11 +101,7 @@ public sealed class MusicKey
         _ => throw new ArgumentOutOfRangeException(nameof(scale))
     };
 
-    /// <summary>
-    /// The diatonic chord quality built on a given scale degree, for the
-    /// seven-note scales. Used to harmonize a roman-numeral progression
-    /// into concrete chord qualities for the current key.
-    /// </summary>
+
     public ChordQuality DiatonicQualityForDegree(int degree)
     {
         var degreeInOctave = ((degree % Degrees) + Degrees) % Degrees;
@@ -195,10 +167,7 @@ public sealed class MusicKey
         };
     }
 
-    /// <summary>
-    /// Semitone intervals (from the chord root) that make up a given
-    /// chord quality. Triads return 3 tones, sevenths return 4.
-    /// </summary>
+
     public static int[] ChordToneIntervals(ChordQuality quality) => quality switch
     {
         ChordQuality.Major => new[] { 0, 4, 7 },

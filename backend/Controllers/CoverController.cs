@@ -21,7 +21,7 @@ public class CoverController : ControllerBase
         [FromQuery] string locale = "en-US")
     {
         var song = _songGenerationService.GenerateFromSeed(locale, seed, index);
-        var bytes = CoverGenerator.Generate(seed, song.Title, song.Album);
+        var bytes = CoverGenerator.Generate(seed, song.Title, song.Album,song.Artist);
         return File(bytes, "image/png");
     }
 }

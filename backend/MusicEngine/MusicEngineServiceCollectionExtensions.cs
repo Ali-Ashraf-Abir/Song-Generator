@@ -7,12 +7,6 @@ namespace backend.MusicEngine;
 
 public static class MusicEngineServiceCollectionExtensions
 {
-    /// <summary>
-    /// Registers the procedural music engine: composition generation,
-    /// MIDI building, WAV rendering, filesystem caching, and the
-    /// top-level <see cref="ISongAudioService"/> facade used by
-    /// AudioController.
-    /// </summary>
     public static IServiceCollection AddMusicEngine(
         this IServiceCollection services,
         MusicEngineOptions options)

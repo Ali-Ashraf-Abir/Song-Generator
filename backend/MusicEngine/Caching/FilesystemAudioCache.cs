@@ -31,8 +31,7 @@ public sealed class FilesystemAudioCache : IAudioCache
         }
         catch (IOException)
         {
-            // Another request may be writing this exact entry concurrently;
-            // treat as a cache miss rather than failing the request.
+
             return null;
         }
     }
@@ -41,9 +40,7 @@ public sealed class FilesystemAudioCache : IAudioCache
     {
         var path = PathFor(cacheKey);
 
-        // Write to a unique temp file then rename, so concurrent requests
-        // racing to populate the same cache entry never read a partially
-        // written file, and the final rename is atomic on the same volume.
+
         var tempPath = $"{path}.{Guid.NewGuid():N}.tmp";
 
         await File.WriteAllBytesAsync(tempPath, wavBytes, cancellationToken);
@@ -54,8 +51,7 @@ public sealed class FilesystemAudioCache : IAudioCache
         }
         catch (IOException)
         {
-            // Another request already populated this entry; our temp file
-            // is redundant, so just discard it.
+
             if (File.Exists(tempPath))
             {
                 File.Delete(tempPath);
