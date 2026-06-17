@@ -99,7 +99,7 @@ export default function ExpandedRow({ song, locale }: ExpandedRowProps) {
         <audio
           controls
           preload="none"
-          src={`http://localhost:5216${song.previewUrl}`}
+          src={`https://song-generator-ni0j.onrender.com${song.previewUrl}`}
         />
         {/* Review */}
         <p className="expanded-review">{review}</p>

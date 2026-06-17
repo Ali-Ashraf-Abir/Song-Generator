@@ -33,6 +33,15 @@ Console.WriteLine(
 Console.WriteLine(
     File.Exists("SoundFonts/GeneralUser_GS.sf2"));
 Console.WriteLine(musicEngineOptions.SoundFontPath);
+Console.WriteLine("Content root: " + builder.Environment.ContentRootPath);
+
+foreach (var file in Directory.GetFiles(
+    builder.Environment.ContentRootPath,
+    "*.sf2",
+    SearchOption.AllDirectories))
+{
+    Console.WriteLine("FOUND SF2: " + file);
+}
 builder.Services.AddControllers();
 builder.Services.AddSingleton<ILocalizationProvider, LocalizationProvider>();
 
