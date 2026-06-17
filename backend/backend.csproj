@@ -17,4 +17,10 @@
   <PackageReference Include="MeltySynth" Version="2.*" />
   <PackageReference Include="NAudio" Version="2.*" />
 </ItemGroup>
+<ItemGroup>
+  <Content Include="SoundFonts/**/*">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+  </Content>
+</ItemGroup>
 </Project>
