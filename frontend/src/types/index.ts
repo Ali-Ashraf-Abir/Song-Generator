@@ -6,6 +6,7 @@ export interface SongDto {
   genre: string;
   likes: number;
   coverUrl: string;
+  previewUrl :string;
 }
 
 export type ViewMode = 'table' | 'gallery';

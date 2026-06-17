@@ -12,7 +12,7 @@ export default function GalleryCard({ song, locale }: GalleryCardProps) {
     <div className="gallery-card">
       <div className="gallery-cover">
         <img
-          src={`/api/covers?seed=${song.index}&index=${song.index}&locale=${locale}`}
+          src={`https://song-generator-ni0j.onrender.com${song.coverUrl}`}
           alt={`${song.title} cover`}
           className="gallery-cover-img"
           loading="lazy"

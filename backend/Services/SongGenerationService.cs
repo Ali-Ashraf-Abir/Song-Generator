@@ -90,7 +90,11 @@ public class SongGenerationService : ISongGenerationService
             Album = album,
             Genre = genre,
             Likes = GenerateLikes(avgLikes, likesRandom),
-            CoverUrl = $"/api/covers?seed={songSeed}&index={index}&locale={localeCode}"
+            CoverUrl = $"/api/covers?seed={songSeed}&index={index}&locale={localeCode}",
+            PreviewUrl =
+    $"/api/audio/preview" +
+    $"?seed={songSeed}" +
+    $"&index={index}"
         };
     }
 

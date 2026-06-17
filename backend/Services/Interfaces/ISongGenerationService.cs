@@ -10,5 +10,8 @@ public interface ISongGenerationService
     SongDto GenerateFromSeed(
         string locale,
         int songSeed,
-        int index);
+        int index
+
+    );
+
 }

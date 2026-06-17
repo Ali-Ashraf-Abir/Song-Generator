@@ -47,13 +47,13 @@ export default function ExpandedRow({ song, locale }: ExpandedRowProps) {
   const label = LABELS[labelIdx];
   const year = YEARS[yearIdx];
   const isSingle = song.album === 'Single';
-
+  console.log(song.previewUrl);
   return (
     <div className="expanded-row">
       {/* Cover */}
       <div className="cover-wrap">
         <img
-          src={`/api/covers?seed=${song.index}&index=${song.index}&locale=${locale}`}
+          src={`https://song-generator-ni0j.onrender.com${song.coverUrl}`}
           alt={`${song.title} cover`}
           className="cover-img"
           onError={e => {
@@ -96,7 +96,11 @@ export default function ExpandedRow({ song, locale }: ExpandedRowProps) {
           </div>
           <span className="player-time">2:{String(Math.floor(30 + (song.index % 30))).padStart(2, '0')}</span>
         </div>
-
+        <audio
+          controls
+          preload="none"
+          src={`http://localhost:5216${song.previewUrl}`}
+        />
         {/* Review */}
         <p className="expanded-review">{review}</p>
       </div>

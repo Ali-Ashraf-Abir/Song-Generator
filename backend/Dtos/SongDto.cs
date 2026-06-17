@@ -13,4 +13,6 @@ public class SongDto
 
     public int Likes { get; set; }
     public string CoverUrl { get; set; } = "";
+
+    public string PreviewUrl { get; set; } = string.Empty;
 }

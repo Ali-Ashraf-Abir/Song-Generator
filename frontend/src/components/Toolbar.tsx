@@ -7,9 +7,6 @@ import { ViewMode } from '@/types';
 const LOCALES = [
   { code: 'en-US', label: 'English (US)' },
   { code: 'de-DE', label: 'German (DE)' },
-  { code: 'uk-UA', label: 'Ukrainian (UA)' },
-  { code: 'fr-FR', label: 'French (FR)' },
-  { code: 'ja-JP', label: 'Japanese (JP)' },
 ];
 
 interface ToolbarProps {
